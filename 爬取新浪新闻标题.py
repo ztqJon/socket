@@ -29,7 +29,7 @@ def html_parser(html, target):
         if each.select('h2'):
             print('发布时间:', each.select('.time')[0].text,end=' ')
             print('标题:', each.select('h2')[0].text)
-        if (a == 1000000000000):
+        if (a == 100):
             break
         a += 1
 
