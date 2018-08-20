@@ -2,10 +2,10 @@
 from bs4 import BeautifulSoup
 import urllib.request
 import urllib
-#从新浪网上下载新闻标题
-#获取html源码
+#download sina headlines from the websites
+#get HTML source code 
 
-#使用代理
+#use agent
 '''
 proxy_support = urllib.request.ProxyHandler({'http':'121.232.146.207'})
 opener = urllib.request.build_opener(proxy_support)
@@ -20,7 +20,7 @@ def html_create(url):
     html = response.read().decode('utf-8')
     return html
 
-#解析html源码
+#Analysis of HTML source code
 def html_parser(html, target):
     #下载100以内的新闻标题
     a = 0
@@ -33,7 +33,7 @@ def html_parser(html, target):
             break
         a += 1
 
-#执行主程序
+#Execution of main program
 url = 'http://news.sina.com.cn/china/'
 target = 'a'
 html_parser(html_create(url), target)
