@@ -8,17 +8,17 @@ from http import cookiejar
 #设置登录请求头并建立一个session
 loginUrl = 'http://elite.nju.edu.cn/jiaowu/'
 loginDoUrl = "http://elite.nju.edu.cn/jiaowu/login.do"
-head = {'Referer': loginUrl,
+loginReferer = "http://elite.nju.edu.cn/jiaowu/exit.do"
+head = {'Referer': loginReferer,
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64;rv:58.0) Gecko/20100101 Firefox/58.0'}
 loginSession = requests.session()
+loginHtml = loginSession.get(loginUrl, headers=head)
 loginSession.cookies = cookiejar.LWPCookieJar(filename='cookies.txt')
 
 def createPostContent(Url):
-    # 首先获取到登录界面的html
-    html = loginSession.get(Url, headers = head)
-
+    #创建需要post的data
     #使用lxml的html解析器
-    startSoup = bs4.BeautifulSoup(html.text, 'lxml')
+    startSoup = bs4.BeautifulSoup(loginHtml.text, 'lxml')
 
     # 找到验证码图片地址
     Source = startSoup.find('img', attrs={'id': 'ValidateImg'})['src']
@@ -35,7 +35,7 @@ def createPostContent(Url):
 
     # 构造需要提交的参数列表
     Data = {'userName': input("学号："), 'password': input("密码："),
-            'returnUrl': '','ValidateCode': input('请输入图片中的验证码')
+            'returnUrl': 'null','ValidateCode': input('请输入图片中的验证码：')
             }
 
     return Data
@@ -54,14 +54,14 @@ data = createPostContent(loginUrl)
 #获取登录数据
 print(data)
 # 模拟登录教务系统
-LoginSession = login(loginUrl, data)
+LoginSession = login(loginDoUrl, data)
 test = LoginSession.get(loginDoUrl)
 #获取登录后页面信息
 soup = bs4.BeautifulSoup(test.text, 'lxml')
 print(soup.text)
-# noinspection PyBroadException
+#获取学生姓名，验证登录成功与否
 try:
     name = soup.find('div', attrs={'id': 'UserInfo'}).text
 except:
-    name = '登录失败 '
+    name = '登录失败'
 print(name)
