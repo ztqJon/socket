@@ -10,8 +10,8 @@ loginRefererUrl = 'http://tyb.nju.edu.cn:8089/index.jsp'
 loginFinishUrl = 'http://tyb.nju.edu.cn:8089/student/studentFrame.jsp'
 userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0'
 #登陆用户信息
-UserName = '171180526'
-passwd = 'As991215'
+UserName = ''
+passwd = ''
 
 requestData = {
         #向服务器post的data信息
