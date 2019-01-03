@@ -38,7 +38,7 @@ def createPostContent(Url):
     image = Image.open('{}/ValidateImg.png'.format(os.getcwd()))
     image.show()
     # 构造需要提交的参数列表
-    Data = {'userName': '171180526', 'password': 'As991215',
+    Data = {'userName': '', 'password': '',
             'ValidateCode': input('请输入图片中的验证码：')
             }
     return Data
